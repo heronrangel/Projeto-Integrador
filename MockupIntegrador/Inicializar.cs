@@ -1,0 +1,11 @@
+﻿public class Inicializar
+{
+    public static void Inicializa()
+    {
+        SQL.fxConexao();
+        //SQL.conexao.DropTable<Produtos>();
+        SQL.conexao.CreateTable<Produtos>();
+        SQL.conexao.CreateTable<Servicos>();
+        SQL.conexao.CreateTable<ServicoItem>();
+    }
+}
