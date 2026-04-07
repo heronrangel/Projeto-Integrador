@@ -8,7 +8,6 @@ namespace MockupIntegrador
         public Produto(int ID = 0)
         {
             InitializeComponent();
-            Inicializar.Inicializa();
 
             if (ID != 0)
             {
@@ -94,7 +93,7 @@ namespace MockupIntegrador
                 SQL.conexao.Update(_produto);
             }
                 
-            MessageBox.Show("Gravado com sucesso!");
+            MessageBox.Show($"Gravado com sucesso!");
             this.Close();
         }
     }

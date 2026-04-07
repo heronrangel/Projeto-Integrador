@@ -7,5 +7,6 @@
         SQL.conexao.CreateTable<Produtos>();
         SQL.conexao.CreateTable<Servicos>();
         SQL.conexao.CreateTable<ServicoItem>();
+        SQL.conexao.CreateTable<PedidoModel>();
     }
 }

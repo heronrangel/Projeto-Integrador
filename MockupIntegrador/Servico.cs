@@ -6,7 +6,6 @@ namespace MockupIntegrador
         public Servico(int ID = 0)
         {
             InitializeComponent();
-            Inicializar.Inicializa();
 
             var produtos = SQL.conexao.Query<Produtos>("SELECT * FROM Produtos;");
             comboItens.DataSource = produtos;

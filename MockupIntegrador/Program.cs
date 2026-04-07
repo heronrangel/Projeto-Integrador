@@ -11,7 +11,8 @@ namespace MockupIntegrador
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Servico(2));
+            Inicializar.Inicializa();
+            Application.Run(new TelaInicial());
         }
     }
 }
