@@ -8,5 +8,16 @@ public class PedidoModel
     public string Nome { get; set; }
     public string Telefone { get; set; }
     public string Endereco { get; set; }
-    public string Itens { get; set; }
+    public DateTime Data { get; set; } = DateTime.Now;
+}
+
+public class PedPro
+{
+    [PrimaryKey, AutoIncrement]
+    public int ID { get; set; }
+    public int IDPedido { get; set; }
+    public string Nome { get; set; }
+    public double Valor { get; set; }
+    public int Quantidade { get; set; }
+    public int Tipo { get; set; }
 }

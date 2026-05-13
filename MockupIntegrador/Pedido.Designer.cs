@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
+            lblPesquisa = new TextBox();
             button1 = new Button();
             button2 = new Button();
             label1 = new Label();
@@ -39,14 +39,15 @@
             button3 = new Button();
             button4 = new Button();
             button5 = new Button();
+            button6 = new Button();
             SuspendLayout();
             // 
-            // textBox1
+            // lblPesquisa
             // 
-            textBox1.Location = new Point(74, 12);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(218, 23);
-            textBox1.TabIndex = 0;
+            lblPesquisa.Location = new Point(74, 12);
+            lblPesquisa.Name = "lblPesquisa";
+            lblPesquisa.Size = new Size(218, 23);
+            lblPesquisa.TabIndex = 0;
             // 
             // button1
             // 
@@ -58,6 +59,7 @@
             button1.TabIndex = 1;
             button1.Text = "Buscar";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -67,6 +69,7 @@
             button2.TabIndex = 2;
             button2.Text = "Limpar";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label1
             // 
@@ -145,11 +148,22 @@
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click_1;
             // 
+            // button6
+            // 
+            button6.Location = new Point(1128, 102);
+            button6.Name = "button6";
+            button6.Size = new Size(75, 23);
+            button6.TabIndex = 11;
+            button6.Text = "Remover";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
             // Pedido
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1210, 454);
+            Controls.Add(button6);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
@@ -160,7 +174,7 @@
             Controls.Add(label1);
             Controls.Add(button2);
             Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(lblPesquisa);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Pedido";
@@ -174,7 +188,7 @@
 
         #endregion
 
-        private TextBox textBox1;
+        private TextBox lblPesquisa;
         private Button button1;
         private Button button2;
         private Label label1;
@@ -185,5 +199,6 @@
         private Button button3;
         private Button button4;
         private Button button5;
+        private Button button6;
     }
 }

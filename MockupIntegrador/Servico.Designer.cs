@@ -39,6 +39,7 @@
             button4 = new Button();
             listView1 = new ListView();
             lblTotalServico = new Label();
+            button3 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -142,11 +143,24 @@
             lblTotalServico.Text = "Total Serviço: R$ 0,00";
             lblTotalServico.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // button3
+            // 
+            button3.BackColor = Color.IndianRed;
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(12, 420);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 18;
+            button3.Text = "Excluir";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
             // Servico
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(557, 455);
+            Controls.Add(button3);
             Controls.Add(lblTotalServico);
             Controls.Add(listView1);
             Controls.Add(button4);
@@ -182,5 +196,6 @@
         private Button button4;
         private ListView listView1;
         private Label lblTotalServico;
+        private Button button3;
     }
 }

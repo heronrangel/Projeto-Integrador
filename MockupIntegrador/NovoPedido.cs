@@ -23,12 +23,6 @@ namespace MockupIntegrador
                 return;
             }
 
-            if (string.IsNullOrEmpty(lblItens.Text))
-            {
-                MessageBox.Show("Informe pelo menos um item!");
-                return;
-            }
-
             if (string.IsNullOrEmpty(lblEndereco.Text))
             {
                 MessageBox.Show("O campo endereço é obrigatório!");
@@ -39,12 +33,10 @@ namespace MockupIntegrador
             {
                 Nome = lblNome.Text,
                 Telefone = lblTelefone.Text,
-                Endereco = lblEndereco.Text,
-                Itens = lblItens.Text
+                Endereco = lblEndereco.Text
             };
 
             SQL.conexao.Insert(pedido);
-            MessageBox.Show("Gravado com sucesso!");
             this.Close();
         }
 
@@ -95,6 +87,19 @@ namespace MockupIntegrador
             txt.SelectionStart = txt.Text.Length;
 
             _atualizando = false;
+        }
+
+        private void NovoPedido_Load(object sender, EventArgs e)
+        {
+            var produtos = SQL.conexao.Query<Produtos>("SELECT * FROM Produtos WHERE Tipo = 1;");
+
+            comboProdutos.DataSource = produtos;
+            comboProdutos.DisplayMember = "Nome"; // você pode criar um "campo calculado" se quiser mais detalhes
+            comboProdutos.ValueMember = "ID";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
         }
     }
 }

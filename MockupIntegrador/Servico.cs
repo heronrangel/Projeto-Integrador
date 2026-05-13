@@ -7,7 +7,7 @@ namespace MockupIntegrador
         {
             InitializeComponent();
 
-            var produtos = SQL.conexao.Query<Produtos>("SELECT * FROM Produtos;");
+            var produtos = SQL.conexao.Query<Produtos>("SELECT * FROM Produtos WHERE Tipo = 0;");
             comboItens.DataSource = produtos;
             comboItens.DisplayMember = "DisplayText"; // você pode criar um "campo calculado" se quiser mais detalhes
             comboItens.ValueMember = "ID";
@@ -214,6 +214,19 @@ namespace MockupIntegrador
                 listView1.Controls.Remove(editBox);
                 editBox.Dispose();
             };
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (_servico != null)
+            {
+                DialogResult resultado = MessageBox.Show($"Deseja remover {_servico.Nome}?", "Atenção", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    SQL.conexao.Delete(_servico);
+                    this.Close();
+                }
+            }
         }
     }
 }

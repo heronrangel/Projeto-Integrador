@@ -38,6 +38,11 @@
             button1 = new Button();
             lblEstoque = new TextBox();
             label5 = new Label();
+            button2 = new Button();
+            comboBox1 = new ComboBox();
+            label6 = new Label();
+            comboBox2 = new ComboBox();
+            label7 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -69,7 +74,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 164);
+            label3.Location = new Point(12, 216);
             label3.Name = "label3";
             label3.Size = new Size(110, 15);
             label3.TabIndex = 3;
@@ -77,7 +82,7 @@
             // 
             // lblValor
             // 
-            lblValor.Location = new Point(15, 130);
+            lblValor.Location = new Point(15, 182);
             lblValor.Name = "lblValor";
             lblValor.Size = new Size(100, 23);
             lblValor.TabIndex = 6;
@@ -86,7 +91,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 112);
+            label4.Location = new Point(12, 164);
             label4.Name = "label4";
             label4.Size = new Size(96, 15);
             label4.TabIndex = 5;
@@ -96,7 +101,7 @@
             // 
             lblMedida.FormattingEnabled = true;
             lblMedida.Items.AddRange(new object[] { "UNIDADE", "LITRO", "KILO", "METRO" });
-            lblMedida.Location = new Point(15, 182);
+            lblMedida.Location = new Point(15, 234);
             lblMedida.Name = "lblMedida";
             lblMedida.Size = new Size(100, 23);
             lblMedida.TabIndex = 7;
@@ -104,7 +109,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(241, 290);
+            button1.Location = new Point(241, 381);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 8;
@@ -114,7 +119,7 @@
             // 
             // lblEstoque
             // 
-            lblEstoque.Location = new Point(15, 237);
+            lblEstoque.Location = new Point(15, 285);
             lblEstoque.Name = "lblEstoque";
             lblEstoque.Size = new Size(100, 23);
             lblEstoque.TabIndex = 10;
@@ -122,17 +127,73 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 219);
+            label5.Location = new Point(12, 267);
             label5.Name = "label5";
             label5.Size = new Size(49, 15);
             label5.TabIndex = 9;
             label5.Text = "Estoque";
             // 
-            // Form1
+            // button2
+            // 
+            button2.BackColor = Color.IndianRed;
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(15, 381);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 11;
+            button2.Text = "Excluir";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "INSUMO", "DEMANDA" });
+            comboBox1.Location = new Point(15, 131);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(100, 23);
+            comboBox1.TabIndex = 13;
+            comboBox1.Text = "INSUMO";
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(12, 113);
+            label6.Name = "label6";
+            label6.Size = new Size(30, 15);
+            label6.TabIndex = 12;
+            label6.Text = "Tipo";
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(15, 131);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(320, 23);
+            comboBox2.TabIndex = 15;
+            comboBox2.Visible = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(12, 113);
+            label7.Name = "label7";
+            label7.Size = new Size(101, 15);
+            label7.TabIndex = 14;
+            label7.Text = "Serviço Vinculado";
+            label7.Visible = false;
+            // 
+            // Produto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(557, 325);
+            ClientSize = new Size(557, 416);
+            Controls.Add(comboBox2);
+            Controls.Add(label7);
+            Controls.Add(comboBox1);
+            Controls.Add(label6);
+            Controls.Add(button2);
             Controls.Add(lblEstoque);
             Controls.Add(label5);
             Controls.Add(button1);
@@ -146,7 +207,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Form1";
+            Name = "Produto";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Produto";
             ResumeLayout(false);
@@ -165,5 +226,10 @@
         private Button button1;
         private TextBox lblEstoque;
         private Label label5;
+        private Button button2;
+        private ComboBox comboBox1;
+        private Label label6;
+        private ComboBox comboBox2;
+        private Label label7;
     }
 }

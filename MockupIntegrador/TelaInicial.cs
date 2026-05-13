@@ -17,14 +17,20 @@ namespace MockupIntegrador
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Servico produto = new Servico();
-            produto.ShowDialog();
+            ListaGeral listaGeral = new ListaGeral("produto");
+            listaGeral.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Pedido produto = new Pedido();
             produto.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ListaGeral listaGeral = new ListaGeral("serviço");
+            listaGeral.ShowDialog();
         }
     }
 }

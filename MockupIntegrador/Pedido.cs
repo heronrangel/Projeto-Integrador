@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using System.Data;
 
 namespace MockupIntegrador
 {
@@ -29,25 +22,37 @@ namespace MockupIntegrador
             listAberto.GridLines = true;
 
             listAberto.Columns.Add("Nome", 160);
+            listAberto.Columns.Add("Data", 100);
             listAberto.Columns.Add("Telefone", 100);
             listAberto.Columns.Add("Endereco", 350);
-            listAberto.Columns.Add("Itens", 450);
 
             listConcluido.View = View.Details;
             listConcluido.FullRowSelect = true;
             listConcluido.GridLines = true;
 
             listConcluido.Columns.Add("Nome", 160);
+            listConcluido.Columns.Add("Data", 100);
             listConcluido.Columns.Add("Telefone", 100);
             listConcluido.Columns.Add("Endereco", 350);
-            listConcluido.Columns.Add("Itens", 450);
         }
 
-        private void MontaLista()
+        private void MontaLista(string filtro = "")
         {
-            var pedidos = SQL.conexao.Query<PedidoModel>(
-                "SELECT * FROM PedidoModel;"
-            ).ToList();
+            List<PedidoModel> pedidos = new List<PedidoModel>();
+
+            if (string.IsNullOrEmpty(filtro))
+            {
+                pedidos = SQL.conexao.Query<PedidoModel>(
+                    "SELECT * FROM PedidoModel;"
+                ).ToList();
+            }
+            else
+            {
+                pedidos = SQL.conexao.Query<PedidoModel>(
+                    "SELECT * FROM PedidoModel WHERE Nome LIKE ? OR Telefone LIKE ?",
+                    $"%{filtro}%", $"%{filtro}%"
+                );
+            }
 
             listAberto.Items.Clear();
             listConcluido.Items.Clear();
@@ -56,9 +61,9 @@ namespace MockupIntegrador
             {
                 var item = new ListViewItem(pedido.Nome);
 
+                item.SubItems.Add(pedido.Data.ToString("dd/MM/yyyy"));
                 item.SubItems.Add(pedido.Telefone);
                 item.SubItems.Add(pedido.Endereco);
-                item.SubItems.Add(pedido.Itens);
 
                 // opcional: guardar o objeto completo
                 item.Tag = pedido;
@@ -70,9 +75,9 @@ namespace MockupIntegrador
             {
                 var item = new ListViewItem(pedido.Nome);
 
+                item.SubItems.Add(pedido.Data.ToString("dd/MM/yyyy"));
                 item.SubItems.Add(pedido.Telefone);
                 item.SubItems.Add(pedido.Endereco);
-                item.SubItems.Add(pedido.Itens);
 
                 // opcional: guardar o objeto completo
                 item.Tag = pedido;
@@ -143,6 +148,38 @@ namespace MockupIntegrador
         private void button5_Click_1(object sender, EventArgs e)
         {
             AlteraPedido(true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MontaLista(lblPesquisa.Text);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MontaLista();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (listAberto.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selecione um pedido.");
+                return;
+            }
+
+            // pega o primeiro item selecionado
+            ListViewItem itemSelecionado = listAberto.SelectedItems[0];
+            PedidoModel selecionado = itemSelecionado.Tag as PedidoModel;
+
+            if (selecionado == null)
+            {
+                MessageBox.Show("Erro: objeto não encontrado.");
+                return;
+            }
+
+            SQL.conexao.Delete(selecionado);
+            MontaLista();
         }
     }
 }
