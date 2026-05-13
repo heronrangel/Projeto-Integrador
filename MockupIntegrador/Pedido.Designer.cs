@@ -97,6 +97,7 @@
             listAberto.Size = new Size(1110, 161);
             listAberto.TabIndex = 5;
             listAberto.UseCompatibleStateImageBehavior = false;
+            listAberto.DoubleClick += listAberto_DoubleClick;
             // 
             // label3
             // 

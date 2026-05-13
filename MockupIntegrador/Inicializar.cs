@@ -8,5 +8,7 @@
         SQL.conexao.CreateTable<Servicos>();
         SQL.conexao.CreateTable<ServicoItem>();
         SQL.conexao.CreateTable<PedidoModel>();
+        SQL.conexao.DropTable<PedPro>();
+        SQL.conexao.CreateTable<PedPro>();
     }
 }

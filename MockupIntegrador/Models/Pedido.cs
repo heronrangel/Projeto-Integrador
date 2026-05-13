@@ -15,7 +15,9 @@ public class PedPro
 {
     [PrimaryKey, AutoIncrement]
     public int ID { get; set; }
+    public int IDPro { get; set; }
     public int IDPedido { get; set; }
+    public string Servico { get; set; }
     public string Nome { get; set; }
     public double Valor { get; set; }
     public int Quantidade { get; set; }

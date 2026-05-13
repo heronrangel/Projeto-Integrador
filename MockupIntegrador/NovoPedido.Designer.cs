@@ -41,6 +41,9 @@
             button5 = new Button();
             comboProdutos = new ComboBox();
             label6 = new Label();
+            label5 = new Label();
+            lblQuantidade = new TextBox();
+            lblTotal = new Label();
             SuspendLayout();
             // 
             // label2
@@ -48,7 +51,7 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(12, 9);
             label2.Name = "label2";
-            label2.Size = new Size(600, 23);
+            label2.Size = new Size(902, 23);
             label2.TabIndex = 5;
             label2.Text = "Novo Pedido";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -104,7 +107,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(276, 411);
+            button1.Location = new Point(423, 411);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 15;
@@ -116,34 +119,36 @@
             // 
             listView2.Location = new Point(12, 213);
             listView2.Name = "listView2";
-            listView2.Size = new Size(518, 131);
+            listView2.Size = new Size(821, 131);
             listView2.TabIndex = 27;
             listView2.UseCompatibleStateImageBehavior = false;
             // 
             // button3
             // 
-            button3.Location = new Point(536, 182);
+            button3.Location = new Point(537, 182);
             button3.Name = "button3";
             button3.Size = new Size(75, 25);
             button3.TabIndex = 26;
             button3.Text = "Adicionar";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click_1;
             // 
             // button5
             // 
-            button5.Location = new Point(536, 213);
+            button5.Location = new Point(839, 213);
             button5.Name = "button5";
             button5.Size = new Size(75, 25);
             button5.TabIndex = 25;
             button5.Text = "Remover";
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // comboProdutos
             // 
             comboProdutos.FormattingEnabled = true;
             comboProdutos.Location = new Point(13, 184);
             comboProdutos.Name = "comboProdutos";
-            comboProdutos.Size = new Size(517, 23);
+            comboProdutos.Size = new Size(440, 23);
             comboProdutos.TabIndex = 24;
             // 
             // label6
@@ -155,11 +160,42 @@
             label6.TabIndex = 23;
             label6.Text = "Produtos";
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(459, 166);
+            label5.Name = "label5";
+            label5.Size = new Size(69, 15);
+            label5.TabIndex = 29;
+            label5.Text = "Quantidade";
+            // 
+            // lblQuantidade
+            // 
+            lblQuantidade.Location = new Point(459, 184);
+            lblQuantidade.Name = "lblQuantidade";
+            lblQuantidade.Size = new Size(71, 23);
+            lblQuantidade.TabIndex = 28;
+            lblQuantidade.Text = "0";
+            lblQuantidade.TextChanged += textBox1_TextChanged;
+            // 
+            // lblTotal
+            // 
+            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotal.Location = new Point(12, 347);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(902, 23);
+            lblTotal.TabIndex = 30;
+            lblTotal.Text = "Total: R$ 0,00";
+            lblTotal.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // NovoPedido
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(624, 446);
+            ClientSize = new Size(926, 446);
+            Controls.Add(lblTotal);
+            Controls.Add(label5);
+            Controls.Add(lblQuantidade);
             Controls.Add(listView2);
             Controls.Add(button3);
             Controls.Add(button5);
@@ -198,5 +234,8 @@
         private Button button5;
         private ComboBox comboProdutos;
         private Label label6;
+        private Label label5;
+        private TextBox lblQuantidade;
+        private Label lblTotal;
     }
 }

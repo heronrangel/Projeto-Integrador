@@ -181,5 +181,17 @@ namespace MockupIntegrador
             SQL.conexao.Delete(selecionado);
             MontaLista();
         }
+
+        private void listAberto_DoubleClick(object sender, EventArgs e)
+        {
+            ListViewItem itemSelecionado = listAberto.SelectedItems[0];
+            PedidoModel selecionado = itemSelecionado.Tag as PedidoModel;
+
+            if (selecionado != null)
+            {
+                NovoPedido form = new NovoPedido(selecionado);
+                form.ShowDialog();
+            }
+        }
     }
 }
