@@ -86,12 +86,13 @@
             // 
             // button1
             // 
+            button1.BackColor = Color.LightBlue;
             button1.Location = new Point(238, 303);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 8;
             button1.Text = "Gravar";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // lblEstoque
@@ -144,6 +145,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(557, 343);
             Controls.Add(lblMedida);
             Controls.Add(label3);

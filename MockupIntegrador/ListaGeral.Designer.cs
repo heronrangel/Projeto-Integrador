@@ -54,18 +54,20 @@
             // 
             // button1
             // 
+            button1.BackColor = Color.LightBlue;
             button1.Location = new Point(675, 15);
             button1.Name = "button1";
             button1.Size = new Size(113, 23);
             button1.TabIndex = 3;
             button1.Text = "Novo";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // ListaGeral
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(800, 450);
             Controls.Add(button1);
             Controls.Add(label1);

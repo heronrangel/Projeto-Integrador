@@ -109,12 +109,13 @@
             // 
             // button1
             // 
+            button1.BackColor = Color.LightBlue;
             button1.Location = new Point(423, 411);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 15;
             button1.Text = "Gravar";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // listView2
@@ -127,22 +128,24 @@
             // 
             // button3
             // 
+            button3.BackColor = Color.LightBlue;
             button3.Location = new Point(840, 182);
             button3.Name = "button3";
             button3.Size = new Size(75, 25);
             button3.TabIndex = 26;
             button3.Text = "Adicionar";
-            button3.UseVisualStyleBackColor = true;
+            button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click_1;
             // 
             // button5
             // 
+            button5.BackColor = Color.LightBlue;
             button5.Location = new Point(839, 213);
             button5.Name = "button5";
             button5.Size = new Size(75, 25);
             button5.TabIndex = 25;
             button5.Text = "Remover";
-            button5.UseVisualStyleBackColor = true;
+            button5.UseVisualStyleBackColor = false;
             button5.Click += button5_Click;
             // 
             // comboServicos
@@ -210,6 +213,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(926, 446);
             Controls.Add(lblProduto);
             Controls.Add(label7);
