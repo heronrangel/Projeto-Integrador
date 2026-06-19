@@ -31,7 +31,6 @@
             listView1 = new ListView();
             label1 = new Label();
             button1 = new Button();
-            comboBox1 = new ComboBox();
             SuspendLayout();
             // 
             // listView1
@@ -63,23 +62,11 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "INSUMO", "DEMANDA" });
-            comboBox1.Location = new Point(12, 16);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(112, 23);
-            comboBox1.TabIndex = 4;
-            comboBox1.Text = "INSUMO";
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-            // 
             // ListaGeral
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
             Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(listView1);
@@ -97,6 +84,5 @@
         private ListView listView1;
         private Label label1;
         private Button button1;
-        private ComboBox comboBox1;
     }
 }

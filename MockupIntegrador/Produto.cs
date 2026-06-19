@@ -1,5 +1,17 @@
 using System.Globalization;
 
+/*
+     * Projeto: Projeto Integrador II (La Salle)
+     * Software desenvolvido em conjunto por:
+     * - Heron Rangel Agostinho
+     * - Eduardo Henrique Copatti
+     *
+     * Data: Semestre 1/2026
+     * Descrição: Sistema para gerir uma lavanderia com a possibilidade de cadastrar insumos (produtos), serviços,
+     * pedidos e estoque. Foi desenvolvido ao logo do primeiro semestre de 2026.
+     */
+
+
 namespace MockupIntegrador
 {
     public partial class Produto : Form
@@ -18,27 +30,6 @@ namespace MockupIntegrador
                     lblValor.Text = FuncoesGerais.DoubleToStr(_produto.Valor);
                     lblMedida.Text = _produto.Medida;
                     lblEstoque.Text = _produto.Estoque.ToString();
-
-                    bool insumo = _produto.Tipo == 0;
-                    label5.Visible = insumo;
-                    lblEstoque.Visible = insumo;
-                    label4.Visible = insumo;
-                    lblValor.Visible = insumo;
-                    label3.Visible = insumo;
-                    lblMedida.Visible = insumo;
-                    comboBox1.Text = insumo ? "INSUMO" : "DEMANDA";
-
-                    label7.Visible = !insumo;
-                    comboBox2.Visible = !insumo;
-
-                    if (!insumo)
-                    {
-                        var servicos = SQL.conexao.Query<Servicos>("SELECT * FROM Servicos;");
-                        comboBox2.DataSource = servicos;
-                        comboBox2.DisplayMember = "Nome"; // você pode criar um "campo calculado" se quiser mais detalhes
-                        comboBox2.ValueMember = "ID";
-                        comboBox2.SelectedItem = servicos.Where(c => c.ID == _produto.IDServico).FirstOrDefault();
-                    }
                 }
             }
 
@@ -70,45 +61,28 @@ namespace MockupIntegrador
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool insumo = comboBox1.Text == "INSUMO";
             if (string.IsNullOrEmpty(lblNome.Text))
             {
                 MessageBox.Show("Informe o nome!");
                 return;
             }
 
-            if (string.IsNullOrEmpty(lblValor.Text) && insumo)
+            if (string.IsNullOrEmpty(lblValor.Text))
             {
                 MessageBox.Show("Informe o valor!");
                 return;
             }
 
-            if (string.IsNullOrEmpty(lblMedida.Text) && insumo)
+            if (string.IsNullOrEmpty(lblMedida.Text))
             {
                 MessageBox.Show("Informe a unidade de medida!");
                 return;
             }
 
-            if (string.IsNullOrEmpty(lblEstoque.Text) && insumo)
+            if (string.IsNullOrEmpty(lblEstoque.Text))
             {
                 MessageBox.Show("Informe o estoque!");
                 return;
-            }
-
-            if (string.IsNullOrEmpty(comboBox2.Text) && !insumo)
-            {
-                MessageBox.Show("Informe o serviço!");
-                return;
-            }
-
-            int IDServico = 0;
-            if (!insumo)
-            {
-                Servicos selecionado = comboBox2.SelectedItem as Servicos;
-                if (selecionado != null)
-                {
-                    IDServico = selecionado.ID;
-                }
             }
 
             if (_produto == null)
@@ -119,8 +93,6 @@ namespace MockupIntegrador
                     Valor = FuncoesGerais.so_numero_double(lblValor.Text),
                     Medida = lblMedida.Text,
                     Estoque = FuncoesGerais.so_numero_double(lblEstoque.Text),
-                    Tipo = comboBox1.Text == "INSUMO" ? 0 : 1,
-                    IDServico = IDServico
                 };
 
                 SQL.conexao.Insert(produto);
@@ -131,12 +103,10 @@ namespace MockupIntegrador
                 _produto.Valor = FuncoesGerais.so_numero_double(lblValor.Text);
                 _produto.Medida = lblMedida.Text;
                 _produto.Estoque = FuncoesGerais.so_numero_double(lblEstoque.Text);
-                _produto.Tipo = comboBox1.Text == "INSUMO" ? 0 : 1;
-                _produto.IDServico = IDServico;
 
                 SQL.conexao.Update(_produto);
             }
-
+            ListaGeral.FxCarregaLista();
             this.Close();
         }
 
@@ -148,20 +118,10 @@ namespace MockupIntegrador
                 if (resultado == DialogResult.Yes)
                 {
                     SQL.conexao.Delete(_produto);
+                    ListaGeral.FxCarregaLista();
                     this.Close();
                 }
             }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool visible = comboBox1.Text == "INSUMO";
-            label5.Visible = visible;
-            lblEstoque.Visible = visible;
-            label4.Visible = visible;
-            lblValor.Visible = visible;
-            label3.Visible = visible;
-            lblMedida.Visible = visible;
         }
     }
 }

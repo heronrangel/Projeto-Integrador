@@ -1,5 +1,6 @@
 ﻿using SQLite;
 
+// Mobelo padrao do pedido.
 public class PedidoModel
 {
     [PrimaryKey,  AutoIncrement]
@@ -11,11 +12,13 @@ public class PedidoModel
     public DateTime Data { get; set; } = DateTime.Now;
 }
 
+// Modelo dos itens do pedido.
 public class PedPro
 {
     [PrimaryKey, AutoIncrement]
     public int ID { get; set; }
     public int IDPro { get; set; }
+    public int IDServico { get; set; }
     public int IDPedido { get; set; }
     public string Servico { get; set; }
     public string Nome { get; set; }

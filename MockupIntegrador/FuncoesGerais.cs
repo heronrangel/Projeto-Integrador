@@ -1,6 +1,17 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
 
+/*
+    * Projeto: Projeto Integrador II (La Salle)
+    * Software desenvolvido em conjunto por:
+    * - Heron Rangel Agostinho
+    * - Eduardo Henrique Copatti
+    *
+    * Data: Semestre 1/2026
+    * Descrição: Sistema para gerir uma lavanderia com a possibilidade de cadastrar insumos (produtos), serviços,
+    * pedidos e estoque. Foi desenvolvido ao logo do primeiro semestre de 2026.
+    */
+
 public class FuncoesGerais
 {
     public static int so_numero(string input)
@@ -61,5 +72,27 @@ public class FuncoesGerais
     public static string DoubleToStr(double valor)
     {
         return string.Format(new CultureInfo("pt-BR"), "R$ {0:N2}", valor);
+    }
+
+
+    // Esta funcao criamos para atualizar o estoque, consumir ou devoler itens.
+    public static void FxEstoque(int IDPed, bool consome = true)
+    {
+        var produtos = SQL.conexao.Query<PedPro>($"SELECT * FROM PedPro WHERE IDPedido = {IDPed};");
+        foreach (var produto in produtos)
+        {
+            var servicoItem = SQL.conexao.Query<ServicoItem>($"SELECT * FROM ServicoItem WHERE IDServico = {produto.IDServico}");
+            foreach (var s in servicoItem)
+            {
+                var pro = SQL.conexao.Query<Produtos>($"SELECT * FROM Produtos WHERE ID = {s.IDProduto}").FirstOrDefault();
+                if (pro != null)
+                {
+                    double quantUsada = s.Quantidade * produto.Quantidade;
+                    double est = consome ? pro.Estoque - quantUsada : pro.Estoque + quantUsada;
+                    pro.Estoque = est < 0 ? 0 : est;
+                    SQL.conexao.Update(pro);
+                }
+            }
+        }
     }
 }

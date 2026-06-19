@@ -1,14 +1,27 @@
 ﻿using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+/*
+     * Projeto: Projeto Integrador II (La Salle)
+     * Software desenvolvido em conjunto por:
+     * - Heron Rangel Agostinho
+     * - Eduardo Henrique Copatti
+     *
+     * Data: Semestre 1/2026
+     * Descrição: Sistema para gerir uma lavanderia com a possibilidade de cadastrar insumos (produtos), serviços,
+     * pedidos e estoque. Foi desenvolvido ao logo do primeiro semestre de 2026.
+     */
+
 
 namespace MockupIntegrador
 {
     public partial class NovoPedido : Form
     {
         private PedidoModel _pedido;
+        private bool _revisualiza;
         public NovoPedido(PedidoModel pedido = null)
         {
             InitializeComponent();
+            _revisualiza = pedido != null;
             _pedido = pedido;
         }
 
@@ -19,16 +32,19 @@ namespace MockupIntegrador
                 MessageBox.Show("O campo nome é obrigatório!");
                 return;
             }
-
-            if (string.IsNullOrEmpty(lblTelefone.Text))
+            else if (string.IsNullOrEmpty(lblTelefone.Text))
             {
                 MessageBox.Show("O campo telefone é obrigatório!");
                 return;
             }
-
-            if (string.IsNullOrEmpty(lblEndereco.Text))
+            else if (string.IsNullOrEmpty(lblEndereco.Text))
             {
                 MessageBox.Show("O campo endereço é obrigatório!");
+                return;
+            }
+            else if (listView2.Items.Count == 0)
+            {
+                MessageBox.Show("Informe ao menos um produto!");
                 return;
             }
 
@@ -48,9 +64,13 @@ namespace MockupIntegrador
                     Endereco = lblEndereco.Text
                 };
                 SQL.conexao.Insert(pedido);
+                _pedido = pedido;
             }
             GravaPedProdutos();
-
+            if (!_revisualiza)
+            {
+                FuncoesGerais.FxEstoque(_pedido.ID);
+            }
             this.Close();
         }
 
@@ -112,11 +132,11 @@ namespace MockupIntegrador
                 lblTelefone.Text = _pedido.Telefone;
             }
 
-            var produtos = SQL.conexao.Query<Produtos>("SELECT * FROM Produtos WHERE Tipo = 1;");
+            var servicos = SQL.conexao.Query<Produtos>("SELECT * FROM Servicos;");
 
-            comboProdutos.DataSource = produtos;
-            comboProdutos.DisplayMember = "Nome"; // você pode criar um "campo calculado" se quiser mais detalhes
-            comboProdutos.ValueMember = "ID";
+            comboServicos.DataSource = servicos;
+            comboServicos.DisplayMember = "Nome"; // você pode criar um "campo calculado" se quiser mais detalhes
+            comboServicos.ValueMember = "ID";
 
             listView2.View = View.Details;
             listView2.FullRowSelect = true;
@@ -127,10 +147,13 @@ namespace MockupIntegrador
             listView2.Columns.Add("Serviço", 200);
             listView2.Columns.Add("Valor Serviço", 100);
 
-            var pedProdutos = SQL.conexao.Query<PedPro>($"SELECT * FROM PedPro WHERE IDPedido = {_pedido.ID};");
-            foreach (var s in pedProdutos)
+            if (_pedido != null)
             {
-                InsereLista(s);
+                var pedProdutos = SQL.conexao.Query<PedPro>($"SELECT * FROM PedPro WHERE IDPedido = {_pedido.ID};");
+                foreach (var s in pedProdutos)
+                {
+                    InsereLista(s);
+                }
             }
         }
 
@@ -164,9 +187,14 @@ namespace MockupIntegrador
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(comboProdutos.Text))
+            if (string.IsNullOrEmpty(lblProduto.Text))
             {
                 MessageBox.Show("Informe um produto!");
+                return;
+            }
+            else if (string.IsNullOrEmpty(comboServicos.Text))
+            {
+                MessageBox.Show("Informe um serviço!");
                 return;
             }
             else if (FuncoesGerais.so_numero(lblQuantidade.Text) == 0)
@@ -175,7 +203,7 @@ namespace MockupIntegrador
                 return;
             }
 
-            Produtos selecionado = comboProdutos.SelectedItem as Produtos;
+            Produtos selecionado = comboServicos.SelectedItem as Produtos;
             if (selecionado != null)
             {
                 foreach (ListViewItem s in listView2.Items)
@@ -184,7 +212,7 @@ namespace MockupIntegrador
 
                     if (produto != null)
                     {
-                        if (produto.IDPro == selecionado.ID)
+                        if (produto.IDPro == selecionado.ID && produto.Nome == lblProduto.Text)
                         {
                             MessageBox.Show("Este produto já está na lista!");
                             return;
@@ -193,18 +221,37 @@ namespace MockupIntegrador
                 }
 
                 int quant = FuncoesGerais.so_numero(lblQuantidade.Text);
+
+                Servicos servico = SQL.conexao.Query<Servicos>($"SELECT * FROM Servicos WHERE ID = {selecionado.ID}").FirstOrDefault();
+
                 double valor = 0;
-                Servicos servico = SQL.conexao.Query<Servicos>($"SELECT * FROM Servicos WHERE ID = {selecionado.IDServico}").FirstOrDefault();
-                if (servico != null)
+                foreach (var p in SQL.conexao.Query<ServicoItem>($"SELECT * FROM ServicoItem WHERE IDServico = {selecionado.ID}"))
                 {
-                    valor = SQL.conexao.ExecuteScalar<double>($"SELECT SUM(Valor) FROM ServicoItem WHERE IDServico = {servico.ID};") * quant;
+                    var pro = SQL.conexao.Query<Produtos>($"SELECT * FROM Produtos WHERE ID = {p.IDProduto}").FirstOrDefault();
+                    if (pro != null)
+                    {
+                        double quantUsada = p.Quantidade * quant;
+                        double est = pro.Estoque - quantUsada;
+                        if (est <= 0)
+                        {
+                            MessageBox.Show($"Insumo {pro.Nome} ficará sem estoque!\n\nEm estoque: {pro.Estoque} {pro.Medida}\nSerá usado: {quantUsada} {pro.Medida}");
+                        }
+                    }
+
+                    if (p != null)
+                    {
+                        p.Total = p.Valor * p.Quantidade;
+                        valor += p.Total;
+                    }
                 }
+                valor = valor * quant;
 
                 PedPro prod = new PedPro
                 {
-                    IDPedido = _pedido.ID,
+                    IDPedido = _pedido != null ? _pedido.ID : 0,
+                    IDServico = servico != null ? servico.ID : 0,
                     IDPro = selecionado.ID,
-                    Nome = comboProdutos.Text,
+                    Nome = lblProduto.Text,
                     Quantidade = quant,
                     Valor = valor,
                     Servico = servico.Nome
@@ -216,9 +263,12 @@ namespace MockupIntegrador
 
         private void GravaPedProdutos()
         {
-            if (listView2.Items.Count > 0)
+            if (_pedido != null)
             {
-                SQL.conexao.Execute($"DELETE FROM PedPro WHERE IDPedido = {_pedido.ID}");
+                if (listView2.Items.Count > 0)
+                {
+                    SQL.conexao.Execute($"DELETE FROM PedPro WHERE IDPedido = {_pedido.ID}");
+                }
             }
 
             foreach (ListViewItem s in listView2.Items)
@@ -226,6 +276,7 @@ namespace MockupIntegrador
                 PedPro produto = s.Tag as PedPro;
                 if (produto != null)
                 {
+                    produto.IDPedido = _pedido.ID;
                     SQL.conexao.Insert(produto);
                 }
             }

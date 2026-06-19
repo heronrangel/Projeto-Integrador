@@ -1,3 +1,14 @@
+/*
+     * Projeto: Projeto Integrador II (La Salle)
+     * Software desenvolvido em conjunto por:
+     * - Heron Rangel Agostinho
+     * - Eduardo Henrique Copatti
+     *
+     * Data: Semestre 1/2026
+     * Descrição: Sistema para gerir uma lavanderia com a possibilidade de cadastrar insumos (produtos), serviços,
+     * pedidos e estoque. Foi desenvolvido ao logo do primeiro semestre de 2026.
+     */
+
 namespace MockupIntegrador
 {
     public partial class Servico : Form
@@ -7,7 +18,7 @@ namespace MockupIntegrador
         {
             InitializeComponent();
 
-            var produtos = SQL.conexao.Query<Produtos>("SELECT * FROM Produtos WHERE Tipo = 0;");
+            var produtos = SQL.conexao.Query<Produtos>("SELECT * FROM Produtos;");
             comboItens.DataSource = produtos;
             comboItens.DisplayMember = "DisplayText"; // você pode criar um "campo calculado" se quiser mais detalhes
             comboItens.ValueMember = "ID";
@@ -70,7 +81,7 @@ namespace MockupIntegrador
                 SQL.conexao.Insert(s);
             }
 
-            MessageBox.Show("Gravado com sucesso!");
+            ListaGeral.FxCarregaLista();
             this.Close();
         }
 
@@ -101,7 +112,7 @@ namespace MockupIntegrador
         {
             var servicoItem = new ServicoItem()
             {
-                ID = produto.ID,
+                IDProduto = produto.ID,
                 Nome = produto.Nome,
                 Estoque = produto.Estoque,
                 Medida = produto.Medida,
@@ -224,6 +235,7 @@ namespace MockupIntegrador
                 if (resultado == DialogResult.Yes)
                 {
                     SQL.conexao.Delete(_servico);
+                    ListaGeral.FxCarregaLista();
                     this.Close();
                 }
             }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pedido));
             lblPesquisa = new TextBox();
             button1 = new Button();
             button2 = new Button();
@@ -40,11 +41,15 @@
             button4 = new Button();
             button5 = new Button();
             button6 = new Button();
+            pictureBox1 = new PictureBox();
+            button7 = new Button();
+            button8 = new Button();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // lblPesquisa
             // 
-            lblPesquisa.Location = new Point(74, 12);
+            lblPesquisa.Location = new Point(74, 165);
             lblPesquisa.Name = "lblPesquisa";
             lblPesquisa.Size = new Size(218, 23);
             lblPesquisa.TabIndex = 0;
@@ -53,7 +58,7 @@
             // 
             button1.BackColor = Color.Green;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(301, 12);
+            button1.Location = new Point(301, 165);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 1;
@@ -63,7 +68,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(382, 12);
+            button2.Location = new Point(382, 165);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 2;
@@ -74,7 +79,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 16);
+            label1.Location = new Point(12, 169);
             label1.Name = "label1";
             label1.Size = new Size(56, 15);
             label1.TabIndex = 3;
@@ -83,7 +88,7 @@
             // label2
             // 
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(12, 47);
+            label2.Location = new Point(12, 200);
             label2.Name = "label2";
             label2.Size = new Size(776, 23);
             label2.TabIndex = 4;
@@ -92,7 +97,7 @@
             // 
             // listAberto
             // 
-            listAberto.Location = new Point(12, 73);
+            listAberto.Location = new Point(12, 226);
             listAberto.Name = "listAberto";
             listAberto.Size = new Size(1110, 161);
             listAberto.TabIndex = 5;
@@ -102,7 +107,7 @@
             // label3
             // 
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(12, 237);
+            label3.Location = new Point(12, 390);
             label3.Name = "label3";
             label3.Size = new Size(776, 23);
             label3.TabIndex = 6;
@@ -111,7 +116,7 @@
             // 
             // listConcluido
             // 
-            listConcluido.Location = new Point(12, 263);
+            listConcluido.Location = new Point(12, 416);
             listConcluido.Name = "listConcluido";
             listConcluido.Size = new Size(1110, 179);
             listConcluido.TabIndex = 7;
@@ -119,9 +124,9 @@
             // 
             // button3
             // 
-            button3.BackColor = Color.DodgerBlue;
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(1104, 16);
+            button3.BackColor = Color.LightBlue;
+            button3.ForeColor = Color.Black;
+            button3.Location = new Point(1104, 169);
             button3.Name = "button3";
             button3.Size = new Size(99, 40);
             button3.TabIndex = 8;
@@ -131,7 +136,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(1128, 73);
+            button4.Location = new Point(1128, 226);
             button4.Name = "button4";
             button4.Size = new Size(75, 23);
             button4.TabIndex = 9;
@@ -141,7 +146,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(1128, 263);
+            button5.Location = new Point(1128, 416);
             button5.Name = "button5";
             button5.Size = new Size(75, 23);
             button5.TabIndex = 10;
@@ -151,7 +156,7 @@
             // 
             // button6
             // 
-            button6.Location = new Point(1128, 102);
+            button6.Location = new Point(1128, 255);
             button6.Name = "button6";
             button6.Size = new Size(75, 23);
             button6.TabIndex = 11;
@@ -159,11 +164,49 @@
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(157, 147);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 12;
+            pictureBox1.TabStop = false;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.LightBlue;
+            button7.ForeColor = Color.Black;
+            button7.Location = new Point(894, 169);
+            button7.Name = "button7";
+            button7.Size = new Size(99, 40);
+            button7.TabIndex = 13;
+            button7.Text = "Insumos";
+            button7.UseVisualStyleBackColor = false;
+            button7.Click += button7_Click;
+            // 
+            // button8
+            // 
+            button8.BackColor = Color.LightBlue;
+            button8.ForeColor = Color.Black;
+            button8.Location = new Point(999, 169);
+            button8.Name = "button8";
+            button8.Size = new Size(99, 40);
+            button8.TabIndex = 14;
+            button8.Text = "Serviços";
+            button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
+            // 
             // Pedido
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1210, 454);
+            BackColor = Color.White;
+            ClientSize = new Size(1210, 607);
+            Controls.Add(button8);
+            Controls.Add(button7);
+            Controls.Add(pictureBox1);
             Controls.Add(button6);
             Controls.Add(button5);
             Controls.Add(button4);
@@ -183,6 +226,7 @@
             Text = "Pedidos";
             Activated += Pedido_Activated;
             Load += Pedido_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -201,5 +245,8 @@
         private Button button4;
         private Button button5;
         private Button button6;
+        private PictureBox pictureBox1;
+        private Button button7;
+        private Button button8;
     }
 }

@@ -39,11 +39,13 @@
             listView2 = new ListView();
             button3 = new Button();
             button5 = new Button();
-            comboProdutos = new ComboBox();
+            comboServicos = new ComboBox();
             label6 = new Label();
             label5 = new Label();
             lblQuantidade = new TextBox();
             lblTotal = new Label();
+            label7 = new Label();
+            lblProduto = new TextBox();
             SuspendLayout();
             // 
             // label2
@@ -125,7 +127,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(537, 182);
+            button3.Location = new Point(840, 182);
             button3.Name = "button3";
             button3.Size = new Size(75, 25);
             button3.TabIndex = 26;
@@ -143,27 +145,27 @@
             button5.UseVisualStyleBackColor = true;
             button5.Click += button5_Click;
             // 
-            // comboProdutos
+            // comboServicos
             // 
-            comboProdutos.FormattingEnabled = true;
-            comboProdutos.Location = new Point(13, 184);
-            comboProdutos.Name = "comboProdutos";
-            comboProdutos.Size = new Size(440, 23);
-            comboProdutos.TabIndex = 24;
+            comboServicos.FormattingEnabled = true;
+            comboServicos.Location = new Point(316, 184);
+            comboServicos.Name = "comboServicos";
+            comboServicos.Size = new Size(440, 23);
+            comboServicos.TabIndex = 24;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Location = new Point(9, 166);
             label6.Name = "label6";
-            label6.Size = new Size(55, 15);
+            label6.Size = new Size(50, 15);
             label6.TabIndex = 23;
-            label6.Text = "Produtos";
+            label6.Text = "Produto";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(459, 166);
+            label5.Location = new Point(762, 166);
             label5.Name = "label5";
             label5.Size = new Size(69, 15);
             label5.TabIndex = 29;
@@ -171,7 +173,7 @@
             // 
             // lblQuantidade
             // 
-            lblQuantidade.Location = new Point(459, 184);
+            lblQuantidade.Location = new Point(762, 184);
             lblQuantidade.Name = "lblQuantidade";
             lblQuantidade.Size = new Size(71, 23);
             lblQuantidade.TabIndex = 28;
@@ -188,18 +190,36 @@
             lblTotal.Text = "Total: R$ 0,00";
             lblTotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(314, 166);
+            label7.Name = "label7";
+            label7.Size = new Size(45, 15);
+            label7.TabIndex = 31;
+            label7.Text = "Serviço";
+            // 
+            // lblProduto
+            // 
+            lblProduto.Location = new Point(12, 184);
+            lblProduto.Name = "lblProduto";
+            lblProduto.Size = new Size(298, 23);
+            lblProduto.TabIndex = 32;
+            // 
             // NovoPedido
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(926, 446);
+            Controls.Add(lblProduto);
+            Controls.Add(label7);
             Controls.Add(lblTotal);
             Controls.Add(label5);
             Controls.Add(lblQuantidade);
             Controls.Add(listView2);
             Controls.Add(button3);
             Controls.Add(button5);
-            Controls.Add(comboProdutos);
+            Controls.Add(comboServicos);
             Controls.Add(label6);
             Controls.Add(button1);
             Controls.Add(label4);
@@ -232,10 +252,12 @@
         private ListView listView2;
         private Button button3;
         private Button button5;
-        private ComboBox comboProdutos;
+        private ComboBox comboServicos;
         private Label label6;
         private Label label5;
         private TextBox lblQuantidade;
         private Label lblTotal;
+        private Label label7;
+        private TextBox lblProduto;
     }
 }

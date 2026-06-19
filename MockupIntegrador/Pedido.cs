@@ -1,5 +1,16 @@
 ﻿using System.Data;
 
+/*
+     * Projeto: Projeto Integrador II (La Salle)
+     * Software desenvolvido em conjunto por:
+     * - Heron Rangel Agostinho
+     * - Eduardo Henrique Copatti
+     *
+     * Data: Semestre 1/2026
+     * Descrição: Sistema para gerir uma lavanderia com a possibilidade de cadastrar insumos (produtos), serviços,
+     * pedidos e estoque. Foi desenvolvido ao logo do primeiro semestre de 2026.
+     */
+
 namespace MockupIntegrador
 {
     public partial class Pedido : Form
@@ -21,19 +32,21 @@ namespace MockupIntegrador
             listAberto.FullRowSelect = true;
             listAberto.GridLines = true;
 
-            listAberto.Columns.Add("Nome", 160);
             listAberto.Columns.Add("Data", 100);
+            listAberto.Columns.Add("Nome", 160);
             listAberto.Columns.Add("Telefone", 100);
             listAberto.Columns.Add("Endereco", 350);
+            listAberto.Columns.Add("Total", 100);
 
             listConcluido.View = View.Details;
             listConcluido.FullRowSelect = true;
             listConcluido.GridLines = true;
 
-            listConcluido.Columns.Add("Nome", 160);
             listConcluido.Columns.Add("Data", 100);
+            listConcluido.Columns.Add("Nome", 160);
             listConcluido.Columns.Add("Telefone", 100);
             listConcluido.Columns.Add("Endereco", 350);
+            listConcluido.Columns.Add("Total", 100);
         }
 
         private void MontaLista(string filtro = "")
@@ -59,11 +72,13 @@ namespace MockupIntegrador
 
             foreach (var pedido in pedidos.Where(c => c.Status == 0))
             {
-                var item = new ListViewItem(pedido.Nome);
+                var item = new ListViewItem(pedido.Data.ToString("dd/MM/yyyy"));
 
-                item.SubItems.Add(pedido.Data.ToString("dd/MM/yyyy"));
+                item.SubItems.Add(pedido.Nome);
                 item.SubItems.Add(pedido.Telefone);
                 item.SubItems.Add(pedido.Endereco);
+                double itensPed = SQL.conexao.ExecuteScalar<double>($"SELECT SUM(Valor) FROM PedPro WHERE IDPedido = {pedido.ID};");
+                item.SubItems.Add(FuncoesGerais.DoubleToStr(itensPed));
 
                 // opcional: guardar o objeto completo
                 item.Tag = pedido;
@@ -73,11 +88,13 @@ namespace MockupIntegrador
 
             foreach (var pedido in pedidos.Where(c => c.Status == 1))
             {
-                var item = new ListViewItem(pedido.Nome);
+                var item = new ListViewItem(pedido.Data.ToString("dd/MM/yyyy"));
 
-                item.SubItems.Add(pedido.Data.ToString("dd/MM/yyyy"));
+                item.SubItems.Add(pedido.Nome);
                 item.SubItems.Add(pedido.Telefone);
                 item.SubItems.Add(pedido.Endereco);
+                double itensPed = SQL.conexao.ExecuteScalar<double>($"SELECT SUM(Valor) FROM PedPro WHERE IDPedido = {pedido.ID};");
+                item.SubItems.Add(FuncoesGerais.DoubleToStr(itensPed));
 
                 // opcional: guardar o objeto completo
                 item.Tag = pedido;
@@ -172,6 +189,28 @@ namespace MockupIntegrador
             ListViewItem itemSelecionado = listAberto.SelectedItems[0];
             PedidoModel selecionado = itemSelecionado.Tag as PedidoModel;
 
+            DialogResult resultado = MessageBox.Show(
+                "Deseja excluir o pedido?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.No)
+            {
+                return;
+            }
+
+            resultado = MessageBox.Show(
+                "Deseja devolver insumos ao estoque?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                FuncoesGerais.FxEstoque(selecionado.ID, false);
+            }
+
             if (selecionado == null)
             {
                 MessageBox.Show("Erro: objeto não encontrado.");
@@ -192,6 +231,18 @@ namespace MockupIntegrador
                 NovoPedido form = new NovoPedido(selecionado);
                 form.ShowDialog();
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            ListaGeral listaGeral = new ListaGeral("produto");
+            listaGeral.ShowDialog();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            ListaGeral listaGeral = new ListaGeral("serviço");
+            listaGeral.ShowDialog();
         }
     }
 }

@@ -1,16 +1,28 @@
-﻿namespace MockupIntegrador
+﻿/*
+     * Projeto: Projeto Integrador II (La Salle)
+     * Software desenvolvido em conjunto por:
+     * - Heron Rangel Agostinho
+     * - Eduardo Henrique Copatti
+     *
+     * Data: Semestre 1/2026
+     * Descrição: Sistema para gerir uma lavanderia com a possibilidade de cadastrar insumos (produtos), serviços,
+     * pedidos e estoque. Foi desenvolvido ao logo do primeiro semestre de 2026.
+     */
+
+namespace MockupIntegrador
 {
     public partial class ListaGeral : Form
     {
-        private string _identificador;
+        public static string _identificador;
         public static bool _atualizar;
+        public static ListView _listview1;
         public ListaGeral(string titulo)
         {
             InitializeComponent();
             label1.Text = $"Lista de {titulo}s";
             button1.Text = $"Novo {titulo}";
+            _listview1 = listView1;
             _identificador = titulo;
-            comboBox1.Visible = _identificador == "produto";
         }
 
         private void ListaGeral_Load(object sender, EventArgs e)
@@ -71,16 +83,16 @@
             }
         }
 
-        private void FxCarregaLista()
+        // Funcao criada para recarregar a lista a partir de qualquer outra classe.
+        public static void FxCarregaLista()
         {
-            List<ListaModel> lista;
-            int tipo = comboBox1.Text == "INSUMO" ? 0 : 1;
-            listView1.Items.Clear();
+            List<ListaModel> lista;;
+            _listview1.Items.Clear();
             switch (_identificador)
             {
                 case "produto":
                     lista = SQL.conexao.Query<ListaModel>(
-                        $"SELECT ID, Nome, Valor FROM Produtos WHERE Tipo = {tipo};"
+                        $"SELECT ID, Nome, Valor FROM Produtos;"
                     ).ToList();
                     break;
 
@@ -109,9 +121,9 @@
                 var item = new ListViewItem(s.nome);
                 item.SubItems.Add(FuncoesGerais.DoubleToStr(s.valor));
                 item.Tag = s;
-                listView1.Items.Add(item);
+                _listview1.Items.Add(item);
             }
-            listView1.Update();
+            _listview1.Update();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

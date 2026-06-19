@@ -8,7 +8,6 @@ public class Produtos
     public double Valor { get; set; }
     public string Medida { get; set; }
     public double Estoque { get; set; }
-    public int Tipo { get; set; } // 0 = Insumo, 1 = Demanda.
     public int IDServico { get; set; }
     public string DisplayText
     {
@@ -24,8 +23,11 @@ public class Servicos
     public double Valor { get; set; }
 }
 
+// Modelo dos produtos dentro do servico herdando o restante.
 public class ServicoItem : Produtos
 {
+    public int ID { get; set; }
+    public int IDProduto { get; set; }
     public int IDServico { get; set; }
     public double Quantidade { get; set; }
     public double Total { get; set; }
